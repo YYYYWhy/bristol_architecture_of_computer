@@ -20,8 +20,11 @@ hack_parser: main.c symboltable.c token.c symboltable.h token.h
 hack_parser_d: main.c symboltable.c token.c symboltable.h token.h 
 	$(CC) main.c symboltable.c token.c $(SANITIZE) -o hack_parser_d 
 
-run: hack_parser 
-	./hack_parser
+test: hack_parser 
+	./hack_parser "./max/Max.asm" "./max/test.hack"
+	./hack_parser "./add/Add.asm" "./add/test.hack"
+	./hack_parser "./pong/Pong.asm" "./pong/test.hack"
+	./hack_parser "./rect/Rect.asm" "./rect/test.hack"
 
 clean:
 	rm -rf hack_parser hack_parser_d

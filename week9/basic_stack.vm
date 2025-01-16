@@ -1,0 +1,20 @@
+// Evaluate (local 3 > 42) and (local 3 < local 5 - 100),
+// then store the result in local 4.
+
+// Initialise local 3 and local 5 for testing.
+push constant 64
+pop local 3
+push constant 256
+pop local 5
+
+// Actually do the comparison.
+push local 3
+push constant 42
+gt // Calculate (local 3 > 42) and put result on stack
+push local 3
+push local 5
+push constant 100
+sub
+lt // Calculate (local 3 < local 5 - 100)
+and
+pop local 4

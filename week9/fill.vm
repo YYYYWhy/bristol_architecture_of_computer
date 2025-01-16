@@ -1,0 +1,54 @@
+// Fill.vm goal:
+// While no key is held, fill every pixel of the screen black.
+// While any key is held, fill every pixel of the screen white.
+//
+// Pseudocode:
+// while (True) {
+// 		for (int i=0x4000; i <= 0x5FFF; i++) {
+//			if (RAM[0x6000] > 0) { // If any key is held
+//				RAM[i] = 0x0000;   // Colour this 1x16 block white
+//			} else {
+//				RAM[i] = 0xFFFF;   // Colour it black
+//			}
+//		}
+// }
+
+// Infinite loop
+label InfiniteLoop
+// Store i in local 0, set i=0x4000.
+push constant 16384
+pop local 0
+
+// Main for loop
+label MainLoop
+// If i > 0x5FFF, break from loop
+push local 0
+push constant 24575
+gt // Stack now contains (i > 0x5FFF)
+if-goto EndMainLoop
+
+// RAM[i] = (RAM[0x6000] <= 0)
+push constant 24576
+pop pointer 1 // That 0 now contains RAM[0x6000]
+push that 0
+push constant 0
+gt
+not // Top value of stack is now (RAM[0x6000 <= 0])
+
+push local 0
+pop pointer 1 // that 0 is now RAM[i]
+pop that 0
+
+// i++
+push local 0
+push constant 1
+add
+pop local 0
+
+// Loop
+goto MainLoop
+
+label EndMainLoop
+
+// Loop
+goto InfiniteLoop

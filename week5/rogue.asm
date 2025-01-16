@@ -1,0 +1,281 @@
+@start_pos_row
+M=0
+@start_pos_col
+M=1
+
+(draw_sign)
+// * draw the whole screen to 0;
+// @SCREEN
+// (fill_blank_loop_start)
+// D=A 
+// @KBD
+// D=D-A 
+// @fill_blank_loop_end
+// D;JEQ 
+//     M=0
+//     A=A+1
+//     @fill_blank_loop_start
+//     0;JMP 
+// (fill_blank_loop_end)
+// * start_registor = SCREEN + start_pos_col / 2 * 8 + start_pos_row * 32 * 11
+// ** start_registor = SCREEN
+@SCREEN 
+D=A
+@start_registor
+M=D 
+// ** sp_col_div_by_2 = start_pos_col / 2 * 8
+@start_pos_col
+D=M 
+@sp_col_div_by_2
+M=0
+(divide_loop_start)
+@divide_loop_end
+D-1;JLE
+    D=D-1
+    D=D-1
+    @sp_col_div_by_2
+    M=M+1
+    @divide_loop_start
+    0;JMP 
+(divide_loop_end)
+@sp_col_div_by_2
+D=M 
+M=M+D 
+D=M 
+M=M+D 
+D=M 
+M=M+D 
+// ** sp_256_row = start_pos_row * 32 * 11
+@sp_352_row
+M=0
+@352
+D=A
+@add_index
+M=D 
+(add_loop_start)
+@add_index
+D=M 
+@add_loop_end
+D;JEQ 
+    @add_index 
+    M=M-1
+    @start_pos_row
+    D=M 
+    @sp_352_row
+    M=M+D 
+    @add_loop_start
+    0;JMP 
+(add_loop_end)
+// ** start_registor = start_registor + sp_col_div_by_2 + sp_256_row
+@sp_col_div_by_2
+D=M 
+@start_registor
+M=M+D 
+@sp_352_row
+D=M 
+@start_registor
+M=M+D 
+// *if start_pos_col % 2 == 0
+@start_pos_col
+D=1
+D=M&D 
+@backward_pos
+D;JNE
+    (forward_pos)
+    @60
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @102
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @66
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @90
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @86
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @86
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @90
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @98
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @60b0000000000000000
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @124
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @0
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @draw_sign_end
+    0;JMP 
+// *else if start_pos_row % 2 == 1
+    (backward_pos)
+    @15360
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @26112
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @16896
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @23040
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @22016
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @22016
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @23040
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @25088
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @1536
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @31744
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @32
+    D=A 
+    @start_registor
+    M=M+D 
+    @0
+    D=A
+    @start_registor
+    A=M 
+    M=D 
+    @draw_sign_end
+    0;JMP 
+(draw_sign_end)
